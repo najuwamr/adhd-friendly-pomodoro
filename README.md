@@ -30,7 +30,7 @@ A clean, responsive, and ADHD-friendly Pomodoro Timer built with **React.js** an
 ```bash
 # 1. Clone the repo
 git clone https://github.com/YOUR_USERNAME/najuu-s-pomodoro.git
-cd najuu-s-pomodoro
+cd adhd-friendly-pomodoro
 
 # 2. Install dependencies
 npm install
