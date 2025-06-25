@@ -9,12 +9,12 @@ import NotificationModal from './components/NotificationModal';
 
 const defaultTimes = {
   'pomodoro': 25 * 60,
-  'short break': 5 * 60,
+  'short break': 1 * 60,
   'long break': 15 * 60,
 };
 
 function App() {
-  const [mode, setMode] = useState('short break');
+  const [mode, setMode] = useState('pomodoro');
   const [timeLeft, setTimeLeft] = useState(defaultTimes[mode]);
   const [isRunning, setIsRunning] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -42,12 +42,24 @@ function App() {
     return () => clearInterval(timer);
   }, [isRunning]);
 
+  const playNotification = () => {
+    const sound = document.getElementById('notification-sound');
+    if (sound) {
+      sound.currentTime = 0;
+      sound.play().catch((e) => console.log('Audio blocked:', e));
+    }
+  };
+
   const handleTimeEnd = () => {
     const next = mode === 'pomodoro' ? 'short break' : 'pomodoro';
     const message = next === 'pomodoro' ? 'waktunya fokus!' : 'waktu istirahat!';
+
     setMode(next);
     setNextMessage(message);
     setShowModal(true);
+
+    playNotification(); 
+
     setTimeout(() => setShowModal(false), 5000);
   };
 
@@ -55,8 +67,10 @@ function App() {
   const seconds = String(timeLeft % 60).padStart(2, '0');
   const progress = 1 - timeLeft / defaultTimes[mode];
 
+  
   return (
     <div className="min-h-screen bg-green-100 font-inter flex items-center justify-center px-4 py-10 relative">
+      <audio id="notification-sound" src="/sounds/soft-calm.mp3" preload="auto" />
       <div className="w-full max-w-xl sm:max-w-2xl flex flex-col items-center gap-8">
         <Header />
         <ModeSelector mode={mode} setMode={setMode} modes={Object.keys(defaultTimes)} />

@@ -6,3 +6,18 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+
+@keyframes fade-slow-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-slow-in {
+  animation: fade-slow-in 0.6s ease-out forwards;
+}
