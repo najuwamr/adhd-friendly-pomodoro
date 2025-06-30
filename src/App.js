@@ -9,7 +9,7 @@ import NotificationModal from './components/NotificationModal';
 
 const defaultTimes = {
   'pomodoro': 25 * 60,
-  'short break': 1 * 60,
+  'short break': 5 * 60,
   'long break': 15 * 60,
 };
 
